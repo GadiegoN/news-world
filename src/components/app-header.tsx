@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/services/firebase-connection";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CategoryProps {
     id: string
@@ -12,6 +13,7 @@ interface CategoryProps {
 }
 
 export function AppHeader() {
+    const navigate = useNavigate()
     const [categories, setCategories] = useState<CategoryProps[]>([])
 
     useEffect(() => {
@@ -44,6 +46,7 @@ export function AppHeader() {
                 {categories.map((item) => (
                     <Button variant="link" asChild key={item.id}><a href={`#${item.category.toLowerCase()}`}>{item.category}</a></Button>
                 ))}
+                <Button variant="link" onClick={() => navigate('/painel-admin')}>Entrar</Button>
                 <ModeToggle />
             </div>
         </div>
